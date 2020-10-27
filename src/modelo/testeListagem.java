@@ -1,9 +1,9 @@
 package modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import bancoDados.IniciaConexao;
 
@@ -13,10 +13,11 @@ public class testeListagem {
 		IniciaConexao ic = new IniciaConexao();
 		Connection con = ic.conexao();
 	
-		Statement stm = con.createStatement();
+		String sql = "SELECT ID_PESSOA,NOME,ENDERECO,IDADE FROM PESSOA";
+		PreparedStatement pstm = con.prepareStatement(sql);
 		
-		stm.execute("SELECT ID_PESSOA,NOME,ENDERECO,IDADE FROM PESSOA");
-		ResultSet rst = stm.getResultSet();
+		pstm.execute();
+		ResultSet rst = pstm.getResultSet();
 		
 		while(rst.next()) {
 			Integer id = rst.getInt(1);
