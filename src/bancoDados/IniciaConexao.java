@@ -24,7 +24,11 @@ public class IniciaConexao {
 		this.dataSource = combodataSource;
 	}
 	
-	public Connection conexao() throws SQLException {
-		return this.dataSource.getConnection();
+	public Connection conexao() {
+		try{
+			return this.dataSource.getConnection();
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

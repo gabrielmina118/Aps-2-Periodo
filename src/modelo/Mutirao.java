@@ -6,6 +6,7 @@ public class Mutirao {
 	private String nome;
 	private String data_mutirao;
 	private String horario;
+	private Integer cidade_id;
 
 	// Construtor da main
 	public Mutirao(String nome, String data_mutirao, String horario) {
@@ -13,13 +14,22 @@ public class Mutirao {
 		this.data_mutirao = data_mutirao;
 		this.horario = horario;
 	}
+
 	// Construtor da lista
-		public Mutirao(Integer id, String nome, String data_mutirao, String horario) {
-			this.id = id;
-			this.nome = nome;
-			this.data_mutirao = data_mutirao;
-			this.horario = horario;
-		}
+	public Mutirao(Integer id, String nome, String data_mutirao, String horario) {
+		this.id = id;
+		this.nome = nome;
+		this.data_mutirao = data_mutirao;
+		this.horario = horario;
+	}
+
+	public Integer getCidade_id() {
+		return cidade_id;
+	}
+
+	public void setCidade_id(Integer cidade_id) {
+		this.cidade_id = cidade_id;
+	}
 
 	public Integer getId() {
 		return id;
@@ -55,7 +65,6 @@ public class Mutirao {
 
 	@Override
 	public String toString() {
-		return String.format("O mutirão é : %d - %s - %s - %s",
-				this.id,this.nome,this.data_mutirao,this.horario);
+		return String.format("O mutirão é : %d - %s - %s - %s", this.id, this.nome, this.data_mutirao, this.horario);
 	}
 }

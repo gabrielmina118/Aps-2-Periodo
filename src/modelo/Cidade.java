@@ -53,7 +53,7 @@ public class Cidade {
 
 	@Override
 	public String toString() {
-		return String.format("A cidade é : %d - %s - %s", this.id, this.nome, this.estado);
+		return String.format("%s",this.nome);
 	}
 
 	public void adicionar(Mutirao mutirao) {

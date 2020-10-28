@@ -1,4 +1,4 @@
-package controllers;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,6 +36,24 @@ public class MutiraoDAO {
 			}
 		}
 		
+	}
+	
+	public void salvarComCidade(Mutirao mutirao) throws SQLException{
+		String sql = "INSERT INTO MUTIRAO(NOME,DATA_MUTIRAO,HORA,CIDADE_ID) VALUES (?,?,?,?)";
+		
+		try(PreparedStatement pstm = conecta.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
+			pstm.setString(1,mutirao.getNome());
+			pstm.setString(2,mutirao.getData_mutirao());
+			pstm.setString(3,mutirao.getHorario());
+			pstm.setInt(4, mutirao.getCidade_id());
+			
+			pstm.execute();
+			try(ResultSet rst = pstm.getGeneratedKeys()){
+				while(rst.next()) {
+					mutirao.setId(rst.getInt(1));
+				}
+			}
+		}
 	}
 	
 	public List<Mutirao> listar() throws SQLException{
@@ -83,4 +101,26 @@ public class MutiraoDAO {
 		}
 		return mutiroes;
 	}
+	
+	public void deletar(Integer id) throws SQLException {
+		
+		String sql = "DELETE FROM MUTIRAO WHERE ID_MUTIRAO = ?";
+		
+		try(PreparedStatement pstm = conecta.prepareStatement(sql)){
+			pstm.setInt(1, id);
+			pstm.execute();
+		}
+	}
+	
+	public void alterar(String nome,String data_mutirao,String hora , Integer id) throws SQLException{
+		String sql = "UPDATE MUTIRAO M SET M.NOME =? , M.DATA_MUTIRAO =? , M.HORA =? WHERE ID_MUTIRAO =? ";
+		try(PreparedStatement pstm = conecta.prepareStatement(sql)){
+			pstm.setString(1, nome);
+			pstm.setString(2, data_mutirao);
+			pstm.setString(3, hora);
+			pstm.setInt(4,id);
+			pstm.execute();
+		}
+	}
+	
 }
